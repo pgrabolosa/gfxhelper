@@ -41,6 +41,13 @@ Save this code to a file `toto.c`. Then execute the script `build/default/build.
 
 TODO: a better documentation + release.
 
+## Mac Support
+
+The Mac support supposes you compiled and installed Gtk+3 on your Mac:
+
+  1. Follow the steps from [Building GTK-OSX](https://wiki.gnome.org/Projects/GTK+/OSX/Building) - mind to substitute `meta-gtk-osx-gtk3` for `meta-gtk-osx-core` as we requires Gtk3 instead of Gtk2. Compiling takes some time but the process is quite straightforward.
+  2. Get the GTK [Bundler](https://wiki.gnome.org/Projects/GTK+/OSX/Bundling) which will let you create "regular" looking Mac apps with Gtk+3 embedded.
+
 ## Documentation
 
 Partially out of date documentation and extra information can be found on the previous home (no sources there): 
