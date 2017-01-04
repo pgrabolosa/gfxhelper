@@ -1,9 +1,12 @@
 #!/bin/bash
 
+CC_FLAGS=" -std=c11 "
+
 OSX=false
 DEBUG=false
 COMPILE_LIB=true
 COMPILE_APP=true
+COMPILE_BUNDLE=true
 
 ######################################################
 # Make sure the required environment is loaded on OS X
@@ -21,12 +24,13 @@ fi
 ######################################################
 # Check for options
 
-args=`getopt d $*`
+args=`getopt bald $*`
 if [ $? != 0 ]; then
-  echo 'Usage: [-d] [-L|l] [c files]'
-  echo '  -d Enable debugging.'
+  echo 'Usage: [-bald] [c files]'
+  echo '  -b Do not compile the bundle (Mac only).'
+  echo '  -a Do not compile the app.'
   echo '  -l Do not compile the library.'
-  echo '  -L Only compile the library.'
+  echo '  -d Enable debugging.'
   exit 2
 fi
 set -- $args
@@ -35,12 +39,16 @@ do
   case "$i" in
     -d)
       DEBUG=true
+      CC_FLAGS="${CC_FLAGS} -g "
       shift;;
     -l)
       COMPILE_LIB=false
       shift;;
-    -L)
+    -a)
       COMPILE_APP=false
+      shift;;
+    -b)
+      COMPILE_BUNDLE=false
       shift;;
     --)
       shift; break;;
@@ -69,14 +77,30 @@ mkdir -p "${OUTPUT_PATH}"
 
 ######################################################
 
-if [ $COMPILE_LIB ]; then
+if [ $COMPILE_LIB == true ]; then
   echo "Building GfxHelper library..."
-  gcc -shared -std=c11 -I"${GFXSRC_PATH}" `pkg-config --cflags --libs gtk+-3.0` -o "${OUTPUT_PATH}/libGfxHelper.so" ${GFXSRC_PATH}/*.c
+  gcc $CC_FLAGS -shared -I"${GFXSRC_PATH}" `pkg-config --cflags --libs gtk+-3.0` -o "${OUTPUT_PATH}/libGfxHelper.so" ${GFXSRC_PATH}/*.c
+  if [ $? != 0 ]; then
+    echo "ERROR: Compiling the library failed."
+    exit $?
+  fi
+  
+  echo "Done."
 fi
 
-if [ $COMPILE_APP ]; then
+if [ $COMPILE_APP == true ]; then
   echo "Building app..."
-  gcc -std=c11 -L"${OUTPUT_PATH}" -lGfxHelper -I"${GFXSRC_PATH}" -o "${OUTPUT_PATH}/app.exe" $@
-fi
+  gcc $CC_FLAGS -L"${OUTPUT_PATH}" -lGfxHelper -I"${GFXSRC_PATH}" -o "${OUTPUT_PATH}/app.exe" $@
+  if [ $? != 0 ]; then
+    echo "ERROR: Compiling the app failed."
+    exit $?
+  fi
 
-echo "Done."
+  echo "Done."
+  
+  if [ $DEBUG == true ]; then
+    echo "Debug using:"
+    echo "   gdb -ex run '${OUTPUT_PATH}/app.exe'"
+    echo "   llvm -o run '${OUTPUT_PATH}/app.exe'"
+  fi
+fi

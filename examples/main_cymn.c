@@ -137,7 +137,7 @@ void draw ( ) {
 		}
 	}
 	
-	setPixels_2D( pixels );
+	setPixels_2D( (const PixelColor_t**)pixels );
 	freePixels_2D( pixels );
   
   mouseWasDown = isMousePressed();
