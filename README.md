@@ -1,10 +1,14 @@
 # GfxHelper Library
 
-[![Platforms](https://img.shields.io/badge/platforms-Linux%20%7C%20Mac-lightgrey.svg?style=plastic)]()
-   
-[![Dependency](https://img.shields.io/badge/dependency-Gtk%2B3-red.svg?style=plastic)](https://www.gtk.org/)
+[![Platforms](https://img.shields.io/badge/platforms-Linux%20%7C%20Mac-lightgrey.svg?style=plastic)]() [![Dependency](https://img.shields.io/badge/dependency-Gtk%2B3-red.svg?style=plastic)](https://www.gtk.org/) [![License](https://img.shields.io/badge/license-GPLv3-blue.svg?style=plastic)](http://www.gnu.org/licenses/)
 
-[![License](https://img.shields.io/badge/license-GPLv3-blue.svg?style=plastic)](http://www.gnu.org/licenses/)
+## About
+
+This library was created for academic purposes to help freshmen get started with graphics programming in C at [IMERIR](https://www.imerir.com/). The goal was not to provide a well coded library (sources were closed) nor a performance-tuned one. The goal was to provide a simple API, [processing](https://processing.org) inspired.
+
+The library was initially available for Ubuntu only, required Gtk+3, and was only available as a binary (see [http://perso.imerir.com/pgrabolosa/2016/langc-gfxhelper/](http://perso.imerir.com/pgrabolosa/2016/langc-gfxhelper/) for extra details).
+
+
 
 ## Tutorial
 
