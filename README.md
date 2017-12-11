@@ -9,6 +9,15 @@ This library was created for academic purposes to help freshmen get started with
 The library was initially available for Ubuntu only, required Gtk+3, and was only available as a binary (see [http://perso.imerir.com/pgrabolosa/2016/langc-gfxhelper/](http://perso.imerir.com/pgrabolosa/2016/langc-gfxhelper/) for extra details).
 
 
+## Quickstart 
+
+```
+./build/default/build.sh examples/main_cymn.c
+cd bin
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:.
+./app.exe
+```
+
 
 ## Tutorial
 

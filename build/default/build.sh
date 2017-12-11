@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CC_FLAGS=" -std=c11 "
+CC_FLAGS=" -std=c11 -fPIC "
 
 OSX=false
 DEBUG=false
@@ -79,7 +79,7 @@ mkdir -p "${OUTPUT_PATH}"
 
 if [ $COMPILE_LIB == true ]; then
   echo "Building GfxHelper library..."
-  gcc $CC_FLAGS -shared -I"${GFXSRC_PATH}" `pkg-config --cflags --libs gtk+-3.0` -o "${OUTPUT_PATH}/libGfxHelper.so" ${GFXSRC_PATH}/*.c
+  gcc -shared $CC_FLAGS -I"${GFXSRC_PATH}" `pkg-config --cflags --libs gtk+-3.0` -o "${OUTPUT_PATH}/libGfxHelper.so" ${GFXSRC_PATH}/*.c
   if [ $? != 0 ]; then
     echo "ERROR: Compiling the library failed."
     exit $?
@@ -90,7 +90,7 @@ fi
 
 if [ $COMPILE_APP == true ]; then
   echo "Building app..."
-  gcc $CC_FLAGS -L"${OUTPUT_PATH}" -lGfxHelper -I"${GFXSRC_PATH}" -o "${OUTPUT_PATH}/app.exe" $@
+  gcc $CC_FLAGS -L"${OUTPUT_PATH}" -I"${GFXSRC_PATH}" $@ -lGfxHelper `pkg-config --cflags --libs gtk+-3.0` -lm -o "${OUTPUT_PATH}/app.exe"
   if [ $? != 0 ]; then
     echo "ERROR: Compiling the app failed."
     exit $?
@@ -104,3 +104,4 @@ if [ $COMPILE_APP == true ]; then
     echo "   llvm -o run '${OUTPUT_PATH}/app.exe'"
   fi
 fi
+
