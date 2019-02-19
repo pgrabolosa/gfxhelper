@@ -70,10 +70,7 @@ Then:
 
 ## Mac Support
 
-The Mac support supposes you compiled and installed Gtk+3 on your Mac:
-
-  1. Follow the steps from [Building GTK-OSX](https://wiki.gnome.org/Projects/GTK+/OSX/Building) - mind to substitute `meta-gtk-osx-gtk3` for `meta-gtk-osx-core` as we requires Gtk3 instead of Gtk2. Compiling takes some time but the process is quite straightforward.
-  2. Get the GTK [Bundler](https://wiki.gnome.org/Projects/GTK+/OSX/Bundling) which will let you create "regular" looking Mac apps with Gtk+3 embedded.
+To use this library with macOS, the usage of [brew](https://brew.sh/) to install the dependencies is recommended as the way to go. The usage of [JetBrain's CLion](https://www.jetbrains.com/clion/) is recommended as well.
 
 ## Documentation
 
