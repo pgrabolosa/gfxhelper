@@ -4,26 +4,41 @@
 
 ## About
 
-This library was created for academic purposes to help freshmen get started with graphics programming in C at [IMERIR](https://www.imerir.com/). The goal was not to provide a well coded library (sources were closed) nor a performance-tuned one. The goal was to provide a simple API, [processing](https://processing.org) inspired.
+This library was created for academic purposes to help freshmen get started with C programming at [IMERIR](https://www.imerir.com/). The focus was not to provide a well coded or optimised library (sources were closed). The goal was to provide a simple API, [Processing](https://processing.org) inspired.
 
-The library was initially available for Ubuntu only, required Gtk+3, and was only available as a binary (see [http://perso.imerir.com/pgrabolosa/2016/langc-gfxhelper/](http://perso.imerir.com/pgrabolosa/2016/langc-gfxhelper/) for extra details).
+## Requirements
+
+   * Gtk+3 / Cairo
+	 * CMake
 
 
 ## Quickstart 
 
+Once you've downloaded this repository:
+
 ```
-./build/default/build.sh examples/main_cymn.c
-cd bin
+cmake -G "Unix Makefiles" .
+cmake --build . --target GfxHelperDemo
+```
+
+On GNU/Linux, the follow extra step may be necessary:
+
+```
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:.
-./app.exe
+```
+
+Then, run the program:
+
+```
+./GfxHelperDemo
 ```
 
 
-## Tutorial
+## Brief example
 
-The [`src/public_header.h`](https://github.com/pgrabolosa/gfxhelper/blob/master/src/public_header.h) file contains the API documentation.
+The file [`src/public_header.h`](https://github.com/pgrabolosa/gfxhelper/blob/master/src/public_header.h) contains the API documentation.
 
-Meanwhile, here is a simple example:
+Here is a short example:
 
     #include <GfxHelper.h>
 
@@ -46,9 +61,12 @@ Meanwhile, here is a simple example:
     	return 0;
     }  
 
-Save this code to a file `toto.c`. Then execute the script `build/default/build.sh` from the project with a path to `toto.c` as argument. This will build the library and an executable from `toto.c`.
 
-TODO: a better documentation + release.
+Then:
+
+  1. Save this code to a file, let's name it `my_custom_main.c`.
+  2. Then build the library (if not already done) `cmake --build . --target GfxHelper`
+	3. Compile and link against the library (and Gtk+3): `gcc -L. -I./src my_custom_main.c -lGfxHelper`
 
 ## Mac Support
 
