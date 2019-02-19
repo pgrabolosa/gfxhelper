@@ -36,9 +36,6 @@ Then, run the program:
 
 ## Brief example
 
-The file [`src/public_header.h`](https://github.com/pgrabolosa/gfxhelper/blob/master/src/public_header.h) contains the API documentation.
-
-Here is a short example:
 
     #include <GfxHelper.h>
 
@@ -74,6 +71,13 @@ To use this library with macOS, the usage of [brew](https://brew.sh/) to install
 
 ## Documentation
 
-Partially out of date documentation and extra information can be found on the previous home (no sources there): 
+The file [`src/public_header.h`](https://github.com/pgrabolosa/gfxhelper/blob/master/src/public_header.h) contains the API documentation.
 
-http://perso.imerir.com/pgrabolosa/2016/langc-gfxhelper/
+## Known Bugs/Issues
+
+  * improper use of the timer + events to refresh the display
+	* key and mouse events trigger extra events
+	* lack of framerate checks (no alerts)
+	* no multithreading support (untested)
+
+Plans to fix? None. This is is merely a small convenience wrapper around Cairo/Gtk to ease some C programming beginner coding.
