@@ -18,7 +18,7 @@ Once you've downloaded this repository:
 
 ```
 cmake -G "Unix Makefiles" .
-cmake --build . --target GfxHelperDemo
+cmake --build . --target examples
 ```
 
 On GNU/Linux, the follow extra step may be necessary:
@@ -27,11 +27,11 @@ On GNU/Linux, the follow extra step may be necessary:
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:.
 ```
 
-Then, run the program:
+Then, run one of the example programs:
 
-```
-./GfxHelperDemo
-```
+  * `./cymn`
+  * `./sapin`
+  * `./soleil`
 
 
 ## Brief example
@@ -62,8 +62,9 @@ Then, run the program:
 Then:
 
   1. Save this code to a file, let's name it `my_custom_main.c`.
-  2. Then build the library (if not already done) `cmake --build . --target GfxHelper`
-	3. Compile and link against the library (and Gtk+3): `gcc -L. -I./src my_custom_main.c -lGfxHelper`
+  2. Generate the building environment `cmake -G "Unix Makefiles" .`
+  3. Then build the library `cmake --build . --target GfxHelper`
+  4. Compile and link against the library (and Gtk+3): `gcc -L. -I./src my_custom_main.c -lGfxHelper`
 
 ## Mac Support
 

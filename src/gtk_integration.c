@@ -18,6 +18,10 @@
 #include <private_headers/lib_common.h>
 #include <string.h>
 
+#ifdef __APPLE__
+#include <foreground.h>
+#endif
+
 // GTK uses (!FALSE) for TRUE causing warnings that expression can be simplified. This redef resolves this.
 #ifdef TRUE
 #undef TRUE
@@ -364,15 +368,18 @@ void _onWindowActivate ( GtkApplication* app, gpointer user_data ) {
 	                                                | GDK_KEY_RELEASE_MASK
 	);
 	gtk_widget_show_all( window );
-  gtk_window_present( GTK_WINDOW(window) );
+    gtk_window_present( GTK_WINDOW(window) );
+	
+#ifdef __APPLE__
+	macos_force_foreground_level();
+#endif
   
 	g_timeout_add(( guint ) ( 1000.0 / frameRate ), ( GSourceFunc ) _onRedraw, ( gpointer ) cg->widget );
 }
 
 
 /*--------------------------------------------------------------------------------------------------------------------*/
-void _startGraphicsLoop ( initializeGraphics_args args ) {
-	
+void _startGraphicsLoop ( initializeGraphics_args args ) {	
 	currentApplication = gtk_application_new( "com.imerir.demo", G_APPLICATION_FLAGS_NONE );
 	g_signal_connect( currentApplication, "activate", G_CALLBACK( _onWindowActivate ), ( gpointer ) &args );
 	g_application_run(G_APPLICATION( currentApplication ), 0, NULL);
