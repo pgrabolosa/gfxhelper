@@ -9,7 +9,7 @@ This library was created for academic purposes to help freshmen get started with
 ## Requirements
 
    * Gtk+3 / Cairo
-	 * CMake
+   * CMake
 
 
 ## Quickstart 
@@ -17,8 +17,8 @@ This library was created for academic purposes to help freshmen get started with
 Once you've downloaded this repository:
 
 ```
-cmake -G "Unix Makefiles" .
-cmake --build . --target examples
+cmake .
+make
 ```
 
 On GNU/Linux, the follow extra step may be necessary:
@@ -62,8 +62,8 @@ Then, run one of the example programs:
 Then:
 
   1. Save this code to a file, let's name it `my_custom_main.c`.
-  2. Generate the building environment `cmake -G "Unix Makefiles" .`
-  3. Then build the library `cmake --build . --target GfxHelper`
+  2. Generate the building environment `cmake .`
+  3. Then build the library `make GfxHelper`
   4. Compile and link against the library (and Gtk+3): `gcc -L. -I./src my_custom_main.c -lGfxHelper`
 
 ## Mac Support
@@ -77,8 +77,8 @@ The file [`src/public_header.h`](https://github.com/pgrabolosa/gfxhelper/blob/ma
 ## Known Bugs/Issues
 
   * improper use of the timer + events to refresh the display
-	* key and mouse events trigger extra events
-	* lack of framerate checks (no alerts)
-	* no multithreading support (untested)
+  * key and mouse events trigger extra events
+  * lack of framerate checks (no alerts)
+  * no multithreading support (untested)
 
 Plans to fix? None. This is is merely a small convenience wrapper around Cairo/Gtk to ease some C programming beginner coding.
