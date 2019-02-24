@@ -126,7 +126,7 @@ void setPixels ( const PixelColor_t* pixels ) {
 			
 			raw_pixel[ 0 ] = ( unsigned char ) ( pixel->blue * 255 );
 			raw_pixel[ 1 ] = ( unsigned char ) ( pixel->green * 255 );
-			raw_pixel[ 3 ] = ( unsigned char ) ( pixel->red * 255 );
+			raw_pixel[ 2 ] = ( unsigned char ) ( pixel->red * 255 );
 			// raw_pixel[3] : alpha
 		}
 	}
