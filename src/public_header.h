@@ -39,7 +39,7 @@
  *
  * @since 1.0
  * */
-typedef void (*CallbackNoArgs) ( );
+typedef void (*CallbackNoArgs) ( void );
 
 
 /*--------------------------------------------------------------------------------------------------------------------*/
@@ -146,7 +146,7 @@ void fillAlpha ( const float r, const float g, const float b, const float a );
  *
  * @since 1.0
  * */
-void noFill ( );
+void noFill ( void );
 
 
 /*--------------------------------------------------------------------------------------------------------------------*/
@@ -186,7 +186,7 @@ void strokeAlpha ( const float r, const float g, const float b, const float a );
  * @related stroke, strokeWidth
  * @relatedalso fill, noFill
  * */
-void noStroke ( );
+void noStroke ( void );
 
 
 /*--------------------------------------------------------------------------------------------------------------------*/
@@ -285,7 +285,7 @@ void triangle ( const int x0, const int y0, const int x1, const int y1, const in
  *
  * @since 1.0
  * */
-int getMouseX ( );
+int getMouseX ( void );
 
 
 /*--------------------------------------------------------------------------------------------------------------------*/
@@ -295,7 +295,7 @@ int getMouseX ( );
  *
  * @since 1.0
  * */
-int getMouseY ( );
+int getMouseY ( void );
 
 
 /*--------------------------------------------------------------------------------------------------------------------*/
@@ -305,7 +305,7 @@ int getMouseY ( );
  *
  * @since 1.0
  * */
-_Bool isMousePressed ( );
+_Bool isMousePressed ( void );
 
 
 /*--------------------------------------------------------------------------------------------------------------------*/
@@ -315,7 +315,7 @@ _Bool isMousePressed ( );
  *
  * @since 1.0
  * */
-int getWidth ( );
+int getWidth ( void );
 
 
 /*--------------------------------------------------------------------------------------------------------------------*/
@@ -325,7 +325,7 @@ int getWidth ( );
  *
  * @since 1.0
  * */
-int getHeight ( );
+int getHeight ( void );
 
 
 /*--------------------------------------------------------------------------------------------------------------------*/
@@ -335,7 +335,7 @@ int getHeight ( );
  *
  * @since 1.0
  * */
-long millis ( );
+long millis ( void );
 
 
 /*--------------------------------------------------------------------------------------------------------------------*/
@@ -345,7 +345,7 @@ long millis ( );
  *
  * @since 1.0
  * */
-float randomUniform ( );
+float randomUniform ( void );
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 /** Tests whether a key is currently being pressed down.
@@ -354,7 +354,7 @@ float randomUniform ( );
  *
  * @since 1.1
  * */
-_Bool isKeyPressed ( );
+_Bool isKeyPressed ( void );
 
 
 /*--------------------------------------------------------------------------------------------------------------------*/
@@ -364,7 +364,7 @@ _Bool isKeyPressed ( );
  *
  * @since 1.0
  * */
-unsigned long getKeyPressed ( );
+unsigned long getKeyPressed ( void );
 
 
 /*--------------------------------------------------------------------------------------------------------------------*/
@@ -446,7 +446,7 @@ void setDrawHandler ( const CallbackNoArgs callback );
  *
  * @since 1.0
  * */
-void clearAllHandlers ( );
+void clearAllHandlers ( void );
 
 
 /*--------------------------------------------------------------------------------------------------------------------*/
@@ -458,7 +458,7 @@ void clearAllHandlers ( );
  *
  * @since 1.1
  * */
-void pushMatrix ( );
+void pushMatrix ( void );
 
 
 /*--------------------------------------------------------------------------------------------------------------------*/
@@ -471,7 +471,7 @@ void pushMatrix ( );
  *
  * @since 1.1
  * */
-void popMatrix ( );
+void popMatrix ( void );
 
 
 /*--------------------------------------------------------------------------------------------------------------------*/
@@ -753,7 +753,7 @@ void freeImage ( Image_t *image );
  *
  * @since 1.1
  * */
-void hideCursor ( );
+void hideCursor ( void );
 
 
 /*--------------------------------------------------------------------------------------------------------------------*/
@@ -763,7 +763,7 @@ void hideCursor ( );
  *
  * @since 1.1
  * */
-void showCursor ( );
+void showCursor ( void );
 
 
 /*--------------------------------------------------------------------------------------------------------------------*/
@@ -783,7 +783,7 @@ void setFrameRate ( int rate );
  *
  * @since 1.1
  * */
-int getFrameRate ( );
+int getFrameRate ( void );
 
 
 /*--------------------------------------------------------------------------------------------------------------------*/
@@ -823,5 +823,51 @@ void fontSize ( const float newSize );
 void textBounds ( const char* restrict text, float* textBoxWidth, float* textBoxHeight );
 
 
+/*--------------------------------------------------------------------------------------------------------------------*/
+/** Key Codes beyond mere text.
+ * @since 1.4
+ * @sa isKeyPressed, getKeyPressed, getKeyCodePressed, getRawKeyCodePressed
+ * */
+typedef enum {
+	KeyCode_None         = 0x0000,
+	KeyCode_Left         = 0x0101,
+	KeyCode_Up           = 0x0102,
+	KeyCode_Right        = 0x0103,
+	KeyCode_Down         = 0x0104,
+	KeyCode_Escape       = 0x0201,
+	KeyCode_Delete       = 0x0202,
+	KeyCode_BackSpace    = 0x0203,
+	KeyCode_Return       = 0x0204,
+	KeyCode_Tab          = 0x0205,
+	KeyCode_ShiftLeft    = 0x0401,
+	KeyCode_ShiftRight   = 0x0402,
+	KeyCode_ControlLeft  = 0x0403,
+	KeyCode_ControlRight = 0x0404,
+	KeyCode_MetaLeft     = 0x0405,
+	KeyCode_MetaRight    = 0x0406,
+	KeyCode_AltLeft      = 0x0407,
+	KeyCode_AltRight     = 0x0408,
+	KeyCode_latinMask = 0x1000 // 0x10__ where __ is the matched values of Basic Latin and Latin-1 Supplement unicodes.
+} KeyCode;
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+/** Return the pressed `KeyCode` (catches special keys).
+ *
+ * @returns the last pressed `KeyCode`, or `KeyCode_None` if none or not representable.
+ *
+ * @since 1.4
+ * @sa isKeyPressed, getKeyPressed, getKeyCodePressed, getRawKeyCodePressed
+ * */
+KeyCode getKeyCodePressed ( void );
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+/** Return the GDK keycode representation (see gdk/gdkkeysyms.h for values).
+ *
+ * @returns the GDK keycode representation of the last pressed key, `GDK_KEY_VoidSymbol` if none.
+ *
+ * @since 1.4
+ * @sa isKeyPressed, getKeyPressed, getKeyCodePressed, getRawKeyCodePressed
+ * */
+unsigned long getRawKeyCodePressed ( void );
 
 #endif //GFXHELLOWORLD_GRAPHICS_H

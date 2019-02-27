@@ -39,6 +39,20 @@ unsigned long getKeyPressed ( ) {
 
 
 /*--------------------------------------------------------------------------------------------------------------------*/
+KeyCode getKeyCodePressed ( ) {
+
+	return _getCurrentGraphicContext( )->keyCode;
+}
+
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+unsigned long getRawKeyCodePressed ( ) {
+
+	return _getCurrentGraphicContext( )->keyRawCode;
+}
+
+
+/*--------------------------------------------------------------------------------------------------------------------*/
 void setMouseMoveHandler ( CallbackNoArgs callback ) {
 	
 	_getCurrentGraphicContext( )->onMouseMoved = callback;

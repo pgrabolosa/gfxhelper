@@ -24,6 +24,7 @@
 
 extern int frameRate;
 
+
 /*--------------------------------------------------------------------------------------------------------------------*/
 /** This struct centralizes in one location many global states of our app.
  * */
@@ -58,6 +59,8 @@ typedef struct {
 	
 	_Bool keyPressed;
 	guint32 keyUnicode;
+	guint keyRawCode;
+	guint keyCode;
 	
 	CairoMatrixList* matrixList;
 	

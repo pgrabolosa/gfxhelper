@@ -89,7 +89,11 @@ GraphicContext* GraphicContext_new ( CallbackNoArgs onDraw, int width, int heigh
 	gc->onKeyUp = NULL;
 	gc->onMouseMoved = NULL;
 	gc->onMouseClicked = NULL;
-	
+
+	gc->keyUnicode = 0;
+	gc->keyCode = 0;
+	gc->keyRawCode = 0;
+
 	gc->cairoContextSurface = cairo_image_surface_create( CAIRO_FORMAT_ARGB32, width, height );
 	gc->cairoContext = cairo_create( gc->cairoContextSurface );
 	
@@ -154,6 +158,36 @@ static gint _onMouseUp ( GtkWidget* widget, GdkEventButton* event ) {
 	return TRUE;
 }
 
+/*--------------------------------------------------------------------------------------------------------------------*/
+static KeyCode gdk_keyval_to_keycode(guint keyval) {
+	guint unicode = gdk_keyval_to_unicode(keyval);
+	if ((unicode == 0x000A || unicode == 0x000D)|| // returns
+		(0x0020 <= unicode && unicode < 0x007E) || // Basic Latin
+		(0x00A0 <= unicode && unicode < 0x00FF) ){ // Latin-1 Supplement
+		return KeyCode_latinMask & unicode;
+	}
+
+	switch(keyval) {
+		case GDK_KEY_Left      : return KeyCode_None;
+		case GDK_KEY_Up        : return KeyCode_Left;
+		case GDK_KEY_Right     : return KeyCode_Up;
+		case GDK_KEY_Down      : return KeyCode_Right;
+		case GDK_KEY_Escape    : return KeyCode_Down;
+		case GDK_KEY_Delete    : return KeyCode_Escape;
+		case GDK_KEY_BackSpace : return KeyCode_Delete;
+		case GDK_KEY_Return    : return KeyCode_BackSpace;
+		case GDK_KEY_Tab       : return KeyCode_Return;
+		case GDK_KEY_Shift_L   : return KeyCode_Tab;
+		case GDK_KEY_Shift_R   : return KeyCode_ShiftLeft;
+		case GDK_KEY_Control_L : return KeyCode_ShiftRight;
+		case GDK_KEY_Control_R : return KeyCode_ControlLeft;
+		case GDK_KEY_Meta_L    : return KeyCode_ControlRight;
+		case GDK_KEY_Meta_R    : return KeyCode_MetaLeft;
+		case GDK_KEY_Alt_L     : return KeyCode_MetaRight;
+		case GDK_KEY_Alt_R     : return KeyCode_AltLeft;
+		default                : return KeyCode_None;
+	}
+}
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 static gint _onKeyPressed ( GtkWidget* widget, GdkEventKey* event ) {
@@ -162,6 +196,8 @@ static gint _onKeyPressed ( GtkWidget* widget, GdkEventKey* event ) {
 	
 	cg->keyPressed = 1;
 	cg->keyUnicode = gdk_keyval_to_unicode(event->keyval);
+	cg->keyCode = gdk_keyval_to_keycode(event->keyval);
+	cg->keyRawCode = event->keyval;
 	if ( cg->onKeyDown ) { cg->onKeyDown( ); }
 	
 	return TRUE;
@@ -175,6 +211,8 @@ static gint _onKeyReleased ( GtkWidget* widget, GdkEventKey* event ) {
 	
 	cg->keyPressed = 0;
 	cg->keyUnicode = gdk_keyval_to_unicode(event->keyval);
+	cg->keyCode = gdk_keyval_to_keycode(event->keyval);
+	cg->keyRawCode = event->keyval;
 	if ( cg->onKeyUp ) { cg->onKeyUp( ); }
 	
 	return TRUE;
