@@ -160,31 +160,32 @@ static gint _onMouseUp ( GtkWidget* widget, GdkEventButton* event ) {
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 static KeyCode gdk_keyval_to_keycode(guint keyval) {
-	guint unicode = gdk_keyval_to_unicode(keyval);
+	uint32_t unicode = gdk_keyval_to_unicode(keyval);
+
 	if ((unicode == 0x000A || unicode == 0x000D)|| // returns
-		(0x0020 <= unicode && unicode < 0x007E) || // Basic Latin
-		(0x00A0 <= unicode && unicode < 0x00FF) ){ // Latin-1 Supplement
-		return KeyCode_latinMask & unicode;
+		(0x0020 <= unicode && unicode <= 0x007E) || // Basic Latin
+		(0x00A0 <= unicode && unicode <= 0x00FF) ){ // Latin-1 Supplement
+		return KeyCode_latinMask | unicode;
 	}
 
 	switch(keyval) {
-		case GDK_KEY_Left      : return KeyCode_None;
-		case GDK_KEY_Up        : return KeyCode_Left;
-		case GDK_KEY_Right     : return KeyCode_Up;
-		case GDK_KEY_Down      : return KeyCode_Right;
-		case GDK_KEY_Escape    : return KeyCode_Down;
-		case GDK_KEY_Delete    : return KeyCode_Escape;
-		case GDK_KEY_BackSpace : return KeyCode_Delete;
-		case GDK_KEY_Return    : return KeyCode_BackSpace;
-		case GDK_KEY_Tab       : return KeyCode_Return;
-		case GDK_KEY_Shift_L   : return KeyCode_Tab;
-		case GDK_KEY_Shift_R   : return KeyCode_ShiftLeft;
-		case GDK_KEY_Control_L : return KeyCode_ShiftRight;
-		case GDK_KEY_Control_R : return KeyCode_ControlLeft;
-		case GDK_KEY_Meta_L    : return KeyCode_ControlRight;
-		case GDK_KEY_Meta_R    : return KeyCode_MetaLeft;
-		case GDK_KEY_Alt_L     : return KeyCode_MetaRight;
-		case GDK_KEY_Alt_R     : return KeyCode_AltLeft;
+		case GDK_KEY_Left      : return KeyCode_Left;
+		case GDK_KEY_Up        : return KeyCode_Up;
+		case GDK_KEY_Right     : return KeyCode_Right;
+		case GDK_KEY_Down      : return KeyCode_Down;
+		case GDK_KEY_Escape    : return KeyCode_Escape;
+		case GDK_KEY_Delete    : return KeyCode_Delete;
+		case GDK_KEY_BackSpace : return KeyCode_BackSpace;
+		case GDK_KEY_Return    : return KeyCode_Return;
+		case GDK_KEY_Tab       : return KeyCode_Tab;
+		case GDK_KEY_Shift_L   : return KeyCode_ShiftLeft;
+		case GDK_KEY_Shift_R   : return KeyCode_ShiftRight;
+		case GDK_KEY_Control_L : return KeyCode_ControlLeft;
+		case GDK_KEY_Control_R : return KeyCode_ControlRight;
+		case GDK_KEY_Meta_L    : return KeyCode_MetaLeft;
+		case GDK_KEY_Meta_R    : return KeyCode_MetaRight;
+		case GDK_KEY_Alt_L     : return KeyCode_AltLeft;
+		case GDK_KEY_Alt_R     : return KeyCode_AltRight;
 		default                : return KeyCode_None;
 	}
 }
