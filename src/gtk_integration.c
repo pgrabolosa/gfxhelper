@@ -160,7 +160,7 @@ static gint _onMouseUp ( GtkWidget* widget, GdkEventButton* event ) {
 
 /*--------------------------------------------------------------------------------------------------------------------*/
 static KeyCode gdk_keyval_to_keycode(guint keyval) {
-	uint32_t unicode = gdk_keyval_to_unicode(keyval);
+	guint unicode = gdk_keyval_to_unicode(keyval);
 
 	if ((unicode == 0x000A || unicode == 0x000D)|| // returns
 		(0x0020 <= unicode && unicode <= 0x007E) || // Basic Latin
