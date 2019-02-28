@@ -388,6 +388,7 @@ void _onWindowActivate ( GtkApplication* app, gpointer user_data ) {
 	
 	gtk_window_set_title(GTK_WINDOW( window ), "" );
 	gtk_window_set_position(GTK_WINDOW( window ), GTK_WIN_POS_CENTER );
+	gtk_window_set_resizable(GTK_WINDOW( window ), FALSE );
 	gtk_window_set_default_size(GTK_WINDOW( window ), args->width, args->height );
 	
 	g_signal_connect ( G_OBJECT( cg->widget ), "motion_notify_event", G_CALLBACK( _onMouseMoved ), NULL );
