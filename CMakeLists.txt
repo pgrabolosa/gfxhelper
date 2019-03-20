@@ -41,5 +41,5 @@ set(DEST_DIR "${CMAKE_INSTALL_PREFIX}")
 CONFIGURE_FILE("pkg-config.in" "gfxhelper.pc" @ONLY)
 
 install(TARGETS GfxHelper DESTINATION lib/)
-install(FILES src/public_header.h DESTINATION includes RENAME GfxHelper.h)
+install(FILES src/public_header.h DESTINATION include RENAME GfxHelper.h)
 install(FILES gfxhelper.pc DESTINATION lib/pkgconfig)
