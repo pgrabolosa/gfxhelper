@@ -1,0 +1,10 @@
+prefix=@DEST_DIR@
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: libGfxHelper
+Description: A processing-inspired graphics library based on Gtk+3.
+Version: @PRODUCT_VERSION_MAJOR@.@PRODUCT_VERSION_MINOR@.@PRODUCT_VERSION_PATCH@
+
+Libs: -L${libdir} GfxHelper
+Cflags: -I${includedir}
