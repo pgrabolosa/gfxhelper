@@ -97,6 +97,59 @@ void noFill ( ) {
 
 
 /*--------------------------------------------------------------------------------------------------------------------*/
+_Bool getFill ( float* out_r, float* out_g, float* out_b, float* out_a ) {
+  
+  GraphicContext* cg = _getCurrentGraphicContext( );
+  
+  if ( cg->noFill ) {
+    if ( out_r ) *out_r = 0;
+    if ( out_g ) *out_g = 0;
+    if ( out_b ) *out_b = 0;
+    if ( out_a ) *out_a = 0;
+    return 0;
+  } else {
+    if ( out_r ) *out_r = cg->fill_r;
+    if ( out_g ) *out_g = cg->fill_g;
+    if ( out_b ) *out_b = cg->fill_b;
+    if ( out_a ) *out_a = cg->fill_a;
+    return 1;
+  } 
+}
+
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+_Bool getStroke ( float* out_r, float* out_g, float* out_b, float* out_a ) {
+  
+  GraphicContext* cg = _getCurrentGraphicContext( );
+  
+  if ( cg->noStroke || cg->strokeWidth == 0 ) {
+    if ( out_r ) *out_r = 0;
+    if ( out_g ) *out_g = 0;
+    if ( out_b ) *out_b = 0;
+    if ( out_a ) *out_a = 0;
+    return 0;
+  } else {
+    if ( out_r ) *out_r = cg->stroke_r;
+    if ( out_g ) *out_g = cg->stroke_g;
+    if ( out_b ) *out_b = cg->stroke_b;
+    if ( out_a ) *out_a = cg->stroke_a;
+    return 1;
+  } 
+}
+
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+float getStrokeWidth ( ) {
+  
+  GraphicContext* cg = _getCurrentGraphicContext( );
+  
+  if ( cg->noStroke ) {
+    return 0;
+  }
+  return cg->strokeWidth;
+}
+
+/*--------------------------------------------------------------------------------------------------------------------*/
 void stroke ( const float r, const float g, const float b ) {
 	
 	GraphicContext* cg = _getCurrentGraphicContext( );
@@ -172,6 +225,7 @@ void line ( const int x0, const int y0, const int x1, const int y1 ) {
 			cairo_new_path( cr );
 			cairo_move_to( cr, x0, y0 );
 			cairo_line_to( cr, x1, y1 );
+      cairo_close_path( cr );
 			
 			( *renderCall )(TRUE);
 		}

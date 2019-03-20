@@ -6,7 +6,7 @@ set(DEMOS soleil cymn sapin)
 
 set(PRODUCT_VERSION_MAJOR 1)
 set(PRODUCT_VERSION_MINOR 4)
-set(PRODUCT_VERSION_PATCH 2)
+set(PRODUCT_VERSION_PATCH 3)
 
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(GTK3 REQUIRED gtk+-3.0)

@@ -113,12 +113,30 @@ void backgroundAlpha ( const float r, const float g, const float b, const float 
  * @param g Green component, from 0.0 to 1.0 (for 0 to 100%)
  * @param b Blue component, from 0.0 to 1.0 (for 0 to 100%)
  *
- * @related noFill, fillAlpha
+ * @related noFill, fillAlpha, getFill
  * @relatedalso stroke, noStroke
  *
  * @since 1.0
  * */
 void fill ( const float r, const float g, const float b );
+
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+/** Retrieves the current red, green, blue components used as filling color.
+ *
+ * @param r Red component, from 0.0 to 1.0 (for 0 to 100%)
+ * @param g Green component, from 0.0 to 1.0 (for 0 to 100%)
+ * @param b Blue component, from 0.0 to 1.0 (for 0 to 100%)
+ * @param a Alpha component, from 0.0 to 1.0 (for 0 to 100%)
+ *
+ * @returns `true` if values were indeed returned, or `false` if `noFill` was set.
+ *
+ * @related noFill, fillAlpha, fill
+ * @relatedalso stroke, noStroke, getStroke
+ *
+ * @since 1.4.3
+ * */
+_Bool getFill ( float* out_r, float* out_g, float* out_b, float* out_a );
 
 
 /*--------------------------------------------------------------------------------------------------------------------*/
@@ -165,6 +183,24 @@ void stroke ( const float r, const float g, const float b );
 
 
 /*--------------------------------------------------------------------------------------------------------------------*/
+/** Retrieves the current red, green, blue components used as outlining color.
+ *
+ * @param r Red component, from 0.0 to 1.0 (for 0 to 100%)
+ * @param g Green component, from 0.0 to 1.0 (for 0 to 100%)
+ * @param b Blue component, from 0.0 to 1.0 (for 0 to 100%)
+ * @param a Alpha component, from 0.0 to 1.0 (for 0 to 100%)
+ *
+ * @returns `true` if values were indeed returned, or `false` if `noStroke` was set.
+ *
+ * @related stroke, noStroke
+ * @relatedalso noFill, fillAlpha, fill, getFill
+ *
+ * @since 1.4.3
+ * */
+_Bool getStroke ( float* out_r, float* out_g, float* out_b, float* out_a );
+
+
+/*--------------------------------------------------------------------------------------------------------------------*/
 /** Sets the outlining (stroke) color for the subsequent drawing calls (such as `rect`, `disk`, etc).
  *
  * @param r Red component, from 0.0 to 1.0 (for 0 to 100%)
@@ -200,6 +236,19 @@ void noStroke ( void );
  * @since 1.0
  * */
 void strokeWidth ( const float width );
+
+
+/*--------------------------------------------------------------------------------------------------------------------*/
+/** Retrieves the width of the stroke when outlining.
+ *
+ * @returns The width in pixels, `0` if `noStroke` was set.
+ *
+ * @related stroke, noStroke
+ *
+ * @since 1.4.3
+ * */
+float getStrokeWidth ( );
+
 
 
 /*--------------------------------------------------------------------------------------------------------------------*/
