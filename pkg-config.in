@@ -6,5 +6,5 @@ Name: libGfxHelper
 Description: A processing-inspired graphics library based on Gtk+3.
 Version: @PRODUCT_VERSION_MAJOR@.@PRODUCT_VERSION_MINOR@.@PRODUCT_VERSION_PATCH@
 
-Libs: -L${libdir} GfxHelper
+Libs: -L${libdir} -lGfxHelper
 Cflags: -I${includedir}
